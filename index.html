@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Terra Nova</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/flow.css">
+<link rel="stylesheet" href="css/analogs.css">
+</head>
+<body>
+
+<!-- Loader -->
+<div id="loader" class="loader" role="status" aria-live="polite">
+  <img src="assets/logo.png" alt="Terra Nova" class="loader__logo">
+  <div class="loader__track"><i id="loaderBar"></i></div>
+  <span id="loaderPct" class="loader__pct">0%</span>
+</div>
+
+<!-- Nav: Home / About / Profile / Map / Language -->
+<nav id="nav" class="nav" aria-label="Main" hidden>
+  <button type="button" class="nav__link" data-go="site" data-i18n="nav.home">Home</button>
+  <button type="button" class="nav__link" data-go="about" data-i18n="nav.about">About</button>
+  <button type="button" class="nav__link" data-go="profile" data-i18n="nav.profile">Profile</button>
+  <button type="button" class="nav__link" id="mapBtn" data-i18n="nav.map">Map</button>
+  <div class="lang" id="lang">
+    <button type="button" id="langBtn" class="nav__link" aria-haspopup="listbox" aria-expanded="false"><span data-i18n="nav.language">Language</span></button>
+    <ul id="langMenu" class="lang__menu" role="listbox" hidden>
+      <li><button type="button" role="option" data-lang="en" lang="en">English</button></li>
+      <li><button type="button" role="option" data-lang="ar" lang="ar">العربية</button></li>
+      <li><button type="button" role="option" data-lang="fr" lang="fr">Français</button></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <!-- VIDEO: first screen on every load. Scroll plays it; it keeps playing when you stop. -->
+  <section id="video" class="view vid" hidden>
+    <video id="introVideo" src="assets/video.mp4" muted playsinline preload="auto" disablepictureinpicture></video>
+    <button type="button" class="skip" id="vidSkip" data-i18n="intro.skip">Skip</button>
+    <div id="vidCue" class="cue" aria-hidden="true"><span data-i18n="video.scroll">Scroll to begin</span><i></i></div>
+    <div class="vid__bar" aria-hidden="true"><i id="vidBar"></i></div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="view abt stars" hidden>
+    <header class="abt__head"><p class="k" data-i18n="about.k"></p><h2 data-i18n="about.title"></h2><p data-i18n="about.sub"></p></header>
+    <div class="abt__grid">
+      <article class="abt__card"><div class="abt__planet"><img src="assets/planet-earth.jpg" alt=""></div><h3 data-i18n="about.earth.t"></h3><p data-i18n="about.earth.p"></p></article>
+      <article class="abt__card"><div class="abt__planet abt__planet--r"><img src="assets/planet-mars.jpg" alt=""></div><h3 data-i18n="about.mars.t"></h3><p data-i18n="about.mars.p"></p></article>
+      <article class="abt__card"><div class="abt__planet"><img src="assets/planet-moon.jpg" alt=""></div><h3 data-i18n="about.moon.t"></h3><p data-i18n="about.moon.p"></p></article>
+    </div>
+  </section>
+  <!-- INTRO: scroll-driven planets -->
+  <section id="intro" class="view" hidden>
+    <div id="introTrack" class="itrack"><div class="istage">
+      <img class="ibg" src="assets/bg-earth.jpg" alt=""><img class="ibg" src="assets/bg-mars.jpg" alt=""><img class="ibg" src="assets/bg-moon.jpg" alt=""><img class="ibg" src="assets/bg-home.jpg" alt="">
+      <div class="iplanets">
+        <div class="pl"><img src="assets/planet-earth.jpg" alt=""></div>
+        <div class="pl"><img src="assets/planet-mars.jpg" alt=""></div>
+        <div class="pl"><img src="assets/planet-moon.jpg" alt=""></div>
+      </div>
+      <div class="icopy">
+        <article class="scene"><p class="k" data-i18n="earth.k"></p><h2 data-i18n="earth.t"></h2><p data-i18n="earth.p"></p></article>
+        <article class="scene"><p class="k" data-i18n="mars.k"></p><h2 data-i18n="mars.t"></h2><p data-i18n="mars.p"></p></article>
+        <article class="scene"><p class="k" data-i18n="moon.k"></p><h2 data-i18n="moon.t"></h2><p data-i18n="moon.p"></p></article>
+      </div>
+      <button type="button" class="skip" id="skipBtn" data-go="site" data-i18n="intro.skip">Skip</button>
+      <div id="introCue" class="cue" aria-hidden="true"><span data-i18n="intro.scroll">Scroll down</span><i></i></div>
+    </div></div>
+  </section>
+
+  <!-- SITE: home (clouds scroll) → comparison -->
+  <section id="site" class="view" hidden>
+    <div id="homeTrack" class="htrack"><div class="hstage stars">
+      <img id="homeBg" class="hbg" src="assets/bg-home.jpg" alt="">
+      <div class="hcopy" id="homeCopy"><h1 class="hname">Terra Nova</h1><p class="hsub" data-i18n-lines="hero.title"></p></div>
+      <img id="cloudB" class="cloud cloud--b" src="assets/clouds.png" alt="">
+      <img id="cloudA" class="cloud" src="assets/clouds.png" alt="">
+      <div id="homeCue" class="cue" aria-hidden="true"><span data-i18n="scroll">Scroll</span><i></i></div>
+    </div></div>
+    <div id="compare" class="cmp stars">
+      <header class="cmp__head"><p class="k" data-i18n="cmp.k"></p><h2 data-i18n="cmp.title"></h2><p data-i18n="cmp.sub"></p></header>
+      <div class="cmp__grid">
+        <aside class="slot"><h3 data-i18n="cmp.slotA"></h3><p data-i18n="cmp.soon"></p></aside>
+        <div class="globe" id="globeWrap">
+          <div id="globe" class="globe__view"></div>
+          <div id="globeState" class="globe__state"><span id="globeMsg" data-i18n="cmp.loading">Loading the globe…</span><button type="button" id="globeRetry" class="btn btn--ghost" data-i18n="cmp.retry" hidden>Try again</button></div>
+          <button type="button" id="globeGate" class="globe__gate" hidden><span data-i18n="cmp.activate">Click to explore the globe</span></button>
+          <button type="button" id="globeRelease" class="globe__release" hidden data-i18n="cmp.release">Back to page scroll</button>
+        </div>
+        <aside class="slot"><h3 data-i18n="cmp.slotB"></h3><p data-i18n="cmp.soon"></p></aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROFILE -->
+  <section id="profile" class="view prof stars" hidden>
+    <div class="prof__card">
+      <h2 data-i18n="profile.title">Your profile</h2>
+      <div class="avatar">
+        <label class="avatar__pick" for="avatarIn" title="Change photo">
+          <img id="avatarImg" alt="" hidden><svg id="avatarPh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+        </label>
+        <input id="avatarIn" type="file" accept="image/*" hidden>
+        <button type="button" class="btn btn--ghost" id="avatarBtn" data-i18n="profile.photo">Upload photo</button>
+      </div>
+      <dl id="profData"><dt data-i18n="profile.name">Username</dt><dd id="pName"></dd><dt data-i18n="profile.email">Email</dt><dd id="pEmail"></dd></dl>
+      <button type="button" id="logoutBtn" class="btn btn--ghost" data-i18n="profile.logout">Log out</button>
+    </div>
+  </section>
+
+<!-- AUTH -->
+  <section id="auth" class="view auth" hidden data-mode="login">
+    <div class="auth__wrap">
+      <div class="card">
+        <div class="card__art">
+          <img src="assets/astronaut.jpg" alt="">
+          <span class="card__welcome" data-i18n="auth.welcome">Welcome</span>
+        </div>
+        <div class="card__form">
+          <form id="authForm" novalidate>
+            <h2 id="authTitle" class="card__title" data-i18n="auth.login.title">Login</h2>
+
+            <div class="field field--name">
+              <input id="fName" name="name" type="text" autocomplete="name" data-i18n-ph="auth.name" placeholder="Full name">
+            </div>
+            <div class="field">
+              <input id="fEmail" name="email" type="email" autocomplete="email" required data-i18n-ph="auth.email" placeholder="Email">
+            </div>
+            <div class="field field--pw">
+              <input id="fPass" name="password" type="password" autocomplete="current-password" required minlength="6" data-i18n-ph="auth.password" placeholder="Password">
+              <button type="button" id="forgotBtn" class="field__link" data-i18n="auth.forgot">Forgot password?</button>
+            </div>
+
+            <p id="authMsg" class="card__msg" role="alert" hidden></p>
+
+            <button id="authSubmit" type="submit" class="card__btn" data-i18n="auth.login.btn">Login</button>
+          </form>
+
+          <p class="card__switch">
+            <span class="only-login"><span data-i18n="auth.noacct">Don’t have an account?</span> <a href="#signup" data-i18n="auth.signuplink">Sign up</a></span>
+            <span class="only-signup"><span data-i18n="auth.haveacct">Already have an account?</span> <a href="#login" data-i18n="auth.loginlink">Login</a></span>
+          </p>
+          <p class="card__or"><span data-i18n="auth.or">or</span></p>
+          <button type="button" id="guestBtn" class="card__guest" data-i18n="auth.guest">Continue as guest</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="js/config.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/flow.js"></script>
+<script src="js/main.js"></script>
+<script src="js/analogs-data.js"></script>
+<script src="js/analogs.js"></script>
+</body>
+</html>
